@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Planeta Jupiter</title>
+    <meta name="description" content="A-Frame Environment">
+    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.0.0/dist/aframe-environment-component.min.js"></script>
+	<script>
+    AFRAME.registerComponent('link-url', {
+          schema: {url: {default: ''},},
+
+          init: function () {
+            var url = this.data.url;
+            this.el.addEventListener('click', function () {
+              window.location.href = url;
+            });
+          }
+        });
+    </script>
+  </head>
+  <body>
+      <a-scene environment="preset: default; ground:hills; groundTexture:walkernoise; groundColor: #F3BB92; skyType:atmosphere; fog:0.7; lightPosition:180 185 125">
+	 <a-assets>
+        <img id="sphmTexture" src="marte.jpg">
+		<a-asset-item id="objecte" src="Low_poly_UFO.obj"></a-asset-item>
+        <a-asset-item id="objecte-mtl" src="Low_poly_UFO.mtl"></a-asset-item>
+
+        
+      </a-assets>  
+       <a-sphere position="12 16 -30" rotation="0 45 45" scale="2 2 2" src="#sphmTexture" link-url="url:marte.html">
+	   <a-animation attribute="rotation"
+	      dur="29000"
+		  to="0 360 0"
+		  repeat="indefinite"
+		  easing="linear"></a-animation> 
+	    <a-animation attribute="scale" begin="mouseenter" dur="400" to="3 3 3"></a-animation></a-sphere>	   
+  	    <a-entity obj-model="obj: #objecte; mtl: #objecte-mtl"
+	    position="-1 5 -15"
+	  	rotation="30 50 45"
+		scale="0.05 0.05 0.05">
+         </a-entity>
+		 
+      <a-text value="Bienvenido a Jupiter" color="white" position="-0.9 0.2 -3" scale="1.5 1.5 1.5"></a-text>
+	  <a-camera>
+        <a-cursor color="#66ffff"></a-cursor>
+      </a-camera>
+    </a-scene>
+  </body>
+</html>

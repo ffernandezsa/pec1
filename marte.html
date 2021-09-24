@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Planeta Marte</title>
+    <meta name="description" content="A-Frame Environment">
+    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.0.0/dist/aframe-environment-component.min.js"></script>
+	<script>    
+		   AFRAME.registerComponent('link-url', {
+          schema: {url: {default: ''},},
+
+          init: function () {
+            var url = this.data.url;
+            this.el.addEventListener('click', function () {
+              window.location.href = url;
+            });
+          }
+        });
+    </script>
+  </head>
+  <body>
+      <a-scene environment="preset: yavapai; groundColor: #D96F58; seed:2; skyType:atmosphere">
+	 <a-assets>
+        <img id="sphtTexture" src="tierra.jpg">
+		<img id="sphjTexture" src="jupiter.jpg">
+		
+		<a-asset-item id="objecte" src="E 45 Aircraft_obj.obj"></a-asset-item>
+        <a-asset-item id="objecte-mtl" src="E 45 Aircraft_obj.mtl"></a-asset-item>
+      </a-assets>  
+       <a-sphere position="12 16 -30" rotation="0 45 45" scale="2 2 2" src="#sphtTexture" link-url="url:tierra.html">
+	   <a-animation attribute="rotation"
+	      dur="29000"
+		  to="0 360 0"
+		  repeat="indefinite"
+		  easing="linear"></a-animation> 
+		  <a-animation attribute="scale" begin="mouseenter" dur="400" to="3 3 3"></a-animation></a-sphere>	   
+       <a-sphere position="-53 26 -49" rotation="0 45 45" scale="7 7 7" src="#sphjTexture" link-url="url:jupiter.html">
+	   	   <a-animation attribute="rotation"
+	      dur="20000"
+		  to="0 360 0"
+		  repeat="indefinite"
+		  easing="linear"></a-animation> 
+		   <a-animation attribute="scale" begin="mouseenter" dur="400" to="9 9 9"></a-animation></a-sphere>	
+	    <a-entity obj-model="obj: #objecte; mtl: #objecte-mtl"
+	    position="-1 5 -15"
+	  	rotation="30 90 45">
+         </a-entity>
+      <a-text value="Bienvenido a Marte" color="white" position="-0.9 0.2 -3" scale="1.5 1.5 1.5"></a-text>
+      <a-camera>
+        <a-cursor color="#66ffff"></a-cursor>
+      </a-camera>
+    </a-scene>
+  </body>
+</html>

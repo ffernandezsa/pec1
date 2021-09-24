@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Planeta Tierra</title>
+    <meta name="description" content="A-Frame Environment">
+    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.0.0/dist/aframe-environment-component.min.js"></script>
+    <script>		
+		AFRAME.registerComponent('link-url', {
+          schema: {url: {default: ''},},
+
+          init: function () {
+            var url = this.data.url;
+            this.el.addEventListener('click', function () {
+              window.location.href = url;
+            });
+          }
+        });
+		</script>
+  </head>
+  <body>
+        <!--Seleccionamos un entorno adecuado para Tierra--> 
+      <a-scene environment="preset: forest; seed:2; skyType:atmosphere"> 
+	 <a-assets> 
+	    <!--Se añade imagen de textura de Marte--> 
+        <img id="sphmTexture" src="marte.jpg"> 
+		<!--Se añade figuras 3D de gacela--> 
+        <a-asset-item id="objeto" src="gacela.obj"></a-asset-item>
+        <a-asset-item id="objeto-mtl" src="gacela.mtl"></a-asset-item>
+		
+	 </a-assets>  
+	    <!--Se establece posición y escala de Marte--> 
+       <a-sphere position="12 16 -30" rotation="0 45 45" scale="2 2 2" src="#sphmTexture" link-url="url:marte.html">
+	    <!--Se añade una animación para que el planeta rote sobre sí mismo y para que se amplíe cuando pasamos el cursor por encima--> 
+	   <a-animation attribute="rotation"
+	      dur="29000"
+		  to="0 360 0"
+		  repeat="indefinite"
+		  easing="linear"></a-animation> 
+	  <a-animation attribute="scale" begin="mouseenter" dur="400" to="3 3 3" </a-animation>		
+		</a-sphere>
+		<!--Se añaden las gacelas, a distinta escala, posición...--> 
+		
+     	 <a-entity obj-model="obj: #objeto; mtl: #objeto-mtl"
+		scale="-1.5 -1.5 -1.5" 
+	    position="-0.2 0 -15"
+	  	rotation="180 180 0"
+		></a-entity>
+		
+		<a-entity obj-model="obj: #objeto; mtl: #objeto-mtl"
+		scale="-1.3 -1.3 -1.3" 
+	    position="3 0 -13"
+	  	rotation="180 190 0"
+		></a-entity>
+		
+		<a-entity obj-model="obj: #objeto; mtl: #objeto-mtl"
+		scale="-0.9 -0.9 -0.9" 
+	    position="2 0 -15"
+	  	rotation="180 200 0"
+		></a-entity>
+
+
+		<!--Se añaden texto de bienvenida...--> 
+      <a-text value="Bienvenido al planeta Tierra" color="white" position="-0.9 0.2 -3" scale="1.5 1.5 1.5"></a-text>
+
+	  <!--Se añaden un cursor para poder interaccionar con los elementos de la escena...--> 
+      <a-camera>
+        <a-cursor color="white"> position="0 0 -1"</a-cursor>
+      </a-camera>
+    </a-scene>
+  </body>
+</html>
